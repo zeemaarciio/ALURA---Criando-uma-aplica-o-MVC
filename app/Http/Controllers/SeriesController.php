@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Serie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
@@ -14,11 +16,15 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        $series = [
+        /*$series = [
             'Punisher',
             'Lost',
             'Grey\'s Anatomy',
-        ];
+        ];*/
+
+        $series = Serie::all();
+
+        //dd($series); // essa função DD Faz um var_dump e encerra a execução e não exibe a view
 
         return view('series.index')->with('series', $series);
     }
@@ -41,7 +47,11 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nomeSerie = $request->input('nome');
+        $serie = new Serie();
+        $serie->nome = $nomeSerie;
+        $serie->save();
+        return redirect('/series');
     }
 
     /**

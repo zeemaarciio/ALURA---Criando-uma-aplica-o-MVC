@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\{
     UserController
 };
@@ -25,5 +26,8 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/series', [SeriesController::class, 'index']);
+Route::get('/series/criar', [SeriesController::class, 'create']);
 
 require __DIR__.'/auth.php';
